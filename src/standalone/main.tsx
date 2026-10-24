@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { PLATFORM_CONTRACT_VERSION } from '@portal/platform-contract';
-import type { PlatformContract } from '@portal/platform-contract';
+import { PLATFORM_CONTRACT_VERSION } from '@portal-poc/platform-contract';
+import type { PlatformContract } from '@portal-poc/platform-contract';
 import { RemoteRoot } from '../exposes/RemoteRoot';
 
 // Minimal local platform: platform-runtime targets React 19, the legacy app only needs the contract types.

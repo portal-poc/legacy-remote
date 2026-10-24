@@ -1,4 +1,4 @@
-import { createRemoteViteConfig } from '@portal/vite-config';
+import { createRemoteViteConfig } from '@portal-poc/vite-config';
 
 /**
  * Legacy remote on React 18: shares nothing (`isolated`) — own React, router and styles, so the host detects a

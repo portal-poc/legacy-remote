@@ -1,4 +1,4 @@
-import { PLATFORM_CONTRACT_VERSION } from '@portal/platform-contract';
+import { PLATFORM_CONTRACT_VERSION } from '@portal-poc/platform-contract';
 
 export { createElement as remoteCreateElement } from 'react';
 

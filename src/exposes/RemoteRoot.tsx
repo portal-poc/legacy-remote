@@ -1,6 +1,6 @@
 import { version } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router';
-import type { PlatformContract } from '@portal/platform-contract';
+import type { PlatformContract } from '@portal-poc/platform-contract';
 
 type RemoteRootProps = { platform: PlatformContract; basename?: string };
 

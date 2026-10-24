@@ -1,5 +1,5 @@
 {
-  "extends": "@portal/presets/tsconfig/react-app.json",
+  "extends": "@portal-poc/presets/tsconfig/react-app.json",
   "compilerOptions": {
     // The monorepo also contains @types/react@19; React Router's typings must see this app's React 18 types.
     "paths": {
