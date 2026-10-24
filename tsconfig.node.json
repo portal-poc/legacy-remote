@@ -1,0 +1,6 @@
+{
+  "extends": "@portal/presets/tsconfig/build-config.json",
+  "include": [
+    "vite.config.ts"
+  ]
+}
