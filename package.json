@@ -11,8 +11,7 @@
     "lint": "oxlint .",
     "test": "echo \"no tests in legacy-remote\"",
     "verify": "portal-cli verify --mode bridge",
-    "release:uat": "pnpm build && pnpm verify && portal-cli publish --nexus-dir ../../.infra/nexus && portal-cli release --stand uat --registry ../../registry --mode bridge && portal-cli registry build --stand uat --registry ../../registry --out ../../.infra/stands/uat/config.json",
-    "dev:in-uat": "echo \"Open http://localhost:4501/legacy?remote.legacy=http://localhost:5175/mf-manifest.json\" && vite --port 5175 --strictPort"
+    "release:uat": "pnpm build && pnpm verify && portal-cli publish --nexus-dir ../../.infra/nexus && portal-cli release --stand uat --registry ../../registry --mode bridge && portal-cli registry build --stand uat --registry ../../registry --out ../../.infra/stands/uat/config.json"
   },
   "dependencies": {
     "@module-federation/bridge-react": "^2.9.2",
@@ -23,8 +22,8 @@
   },
   "devDependencies": {
     "@module-federation/vite": "^1.23.5",
-    "@portal/mf-shared": "workspace:^",
     "@portal/presets": "workspace:^",
+    "@portal/vite-config": "workspace:^",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^6.1.2",
