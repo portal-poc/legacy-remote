@@ -11,20 +11,20 @@
     "lint": "oxlint .",
     "test": "echo \"no tests in legacy-remote\"",
     "verify": "portal-cli verify --mode bridge",
-    "release:uat": "pnpm build && pnpm verify && portal-cli publish --nexus-dir ../../.infra/nexus && portal-cli release --stand uat --registry ../../registry --mode bridge && portal-cli registry build --stand uat --registry ../../registry --out ../../.infra/stands/uat/config.json"
+    "release:uat": "pnpm build && pnpm verify && portal-cli publish && portal-cli release --stand uat --mode bridge --pr"
   },
   "dependencies": {
     "@module-federation/bridge-react": "^2.9.2",
-    "@portal-poc/platform-contract": "workspace:^",
+    "@portal-poc/platform-contract": "^1.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router": "^7.18.4"
   },
   "devDependencies": {
     "@module-federation/vite": "^1.23.5",
-    "@portal-poc/cli": "workspace:^",
-    "@portal-poc/presets": "workspace:^",
-    "@portal-poc/vite-config": "workspace:^",
+    "@portal-poc/cli": "^1.0.0",
+    "@portal-poc/presets": "^1.0.0",
+    "@portal-poc/vite-config": "^1.0.0",
     "@types/node": "^26.6.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -32,5 +32,9 @@
     "oxlint": "^1.89.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.5"
+  },
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24.19.0"
   }
 }
