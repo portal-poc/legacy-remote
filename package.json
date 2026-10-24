@@ -11,7 +11,7 @@
     "lint": "oxlint .",
     "test": "echo \"no tests in legacy-remote\"",
     "verify": "portal-cli verify --mode bridge",
-    "release:uat": "pnpm build && pnpm verify && portal-cli publish && portal-cli release --stand uat --mode bridge --pr"
+    "release": "pnpm build && pnpm verify && portal-cli publish && portal-cli release --auto --mode bridge --pr"
   },
   "dependencies": {
     "@module-federation/bridge-react": "^2.9.2",
@@ -22,9 +22,9 @@
   },
   "devDependencies": {
     "@module-federation/vite": "^1.23.5",
-    "@portal-poc/cli": "^1.0.0",
+    "@portal-poc/cli": "^1.1.0",
     "@portal-poc/presets": "^1.0.0",
-    "@portal-poc/vite-config": "^1.0.0",
+    "@portal-poc/vite-config": "^1.1.0",
     "@types/node": "^26.6.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
