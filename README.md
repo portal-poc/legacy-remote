@@ -28,9 +28,6 @@ Nothing deploys by itself: **Actions → Deploy → Run workflow**, pick the sta
 before the build, see platform `docs/branching.md`): `dev3` takes any branch and is overwritten in place; `dev2` the
 newest `release/X.Y` or its tags, `dev1` the pilot line; `tst` only via "Promote" in the registry.
 
-Locally, against the PoC infra (the same command the pipeline runs):
-
-```sh
-export PORTAL_REGISTRY_DIR=~/projects/portal-poc/registry PORTAL_NEXUS_USER=poc PORTAL_NEXUS_PASSWORD=poc
-pnpm dlx @portal-poc/cli@2 deploy --stand dev3 --mode bridge   # main → dev3 snapshot (no release lines here yet)
-```
+The pipeline runs `pnpm dlx @portal-poc/cli@2 deploy --stand <stand> --ref <ref> --push`; uploads need the Nexus
+deploy credentials, which only the pipeline has. Locally run the same checks without uploading: `pnpm build &&
+pnpm verify` (gate 1) and `pnpm check` in the registry (gate 2 against every stand's host).
