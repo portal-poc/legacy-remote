@@ -2,6 +2,8 @@ import { useEffect, useState, version } from 'react';
 import type { MouseEvent, ReactNode } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router';
 import type { PlatformContract } from '@portal-poc/platform-contract';
+import { fakeLegacyBffFetch, LEGACY_SCOPE } from '../fake-legacy-bff';
+import type { LegacyProfile } from '../fake-legacy-bff';
 
 type RemoteRootProps = { platform: PlatformContract; basename?: string };
 
@@ -38,6 +40,52 @@ const GuardedLink = ({ platform, basename, to, children }: { platform: PlatformC
   );
 };
 
+/**
+ * Our backend with the host's login: the token comes from `platform.auth` for the legacy BFF's audience (the
+ * registry's scopes allowlist), the BFF exchanges it for the legacy auth's token. No second login anywhere.
+ */
+const LegacyProfileCard = ({ platform }: { platform: PlatformContract }) => {
+  const [profile, setProfile] = useState<LegacyProfile | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let current = true;
+    platform.auth
+      .getAccessToken([LEGACY_SCOPE])
+      .then((token) => fakeLegacyBffFetch('https://legacy-bff.local/api/profile', { headers: { Authorization: `Bearer ${token}` } }))
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`legacy-bff → HTTP ${response.status}`);
+        }
+        return (await response.json()) as LegacyProfile;
+      })
+      .then((result) => current && setProfile(result))
+      .catch((caught: unknown) => current && setError(String(caught)));
+    return () => {
+      current = false;
+    };
+  }, [platform]);
+
+  if (error) {
+    return <p style={{ color: '#b00' }}>{error}</p>;
+  }
+  if (!profile) {
+    return <p>Loading the legacy profile…</p>;
+  }
+  return (
+    <div style={{ background: '#f6f0f0', padding: 8, borderRadius: 4 }}>
+      <b>Legacy backend, same login as the portal</b>
+      <ul style={{ margin: '4px 0' }}>
+        <li>portal user: {profile.portalUser} (token for {profile.exchange.audience})</li>
+        <li>exchanged on-behalf-of → legacy account {profile.legacyAccount}</li>
+        <li>
+          legacy token <code>{profile.exchange.legacyToken}</code> until {new Date(profile.exchange.expiresAt).toLocaleTimeString()}
+        </li>
+      </ul>
+    </div>
+  );
+};
+
 const Home = ({ platform, basename }: { platform: PlatformContract; basename: string }) => {
   usePageTitle(platform, 'Overview');
   const [dirty, setDirty] = useState(false);
@@ -53,6 +101,7 @@ const Home = ({ platform, basename }: { platform: PlatformContract; basename: st
         Legacy app on <b>React {version}</b>, mounted through MF Bridge in its own root.
       </p>
       <p>Signed in as: {platform.auth.getAccount()?.displayName ?? '—'}</p>
+      <LegacyProfileCard platform={platform} />
       <label>
         <input type="checkbox" checked={dirty} onChange={(event) => setDirty(event.target.checked)} /> I have unsaved
         changes (leaving asks: host menu, the links below, back, reload)
