@@ -10,8 +10,7 @@
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
     "lint": "oxlint .",
     "test": "echo \"no tests in legacy-remote\"",
-    "verify": "portal-cli verify --mode bridge",
-    "release": "pnpm build && pnpm verify && portal-cli publish && portal-cli release --auto --mode bridge --pr"
+    "verify": "portal-cli verify --mode bridge"
   },
   "dependencies": {
     "@module-federation/bridge-react": "^2.9.2",
