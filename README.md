@@ -1,5 +1,7 @@
 # legacy-remote
 
+> Part of the portal PoC. Start at the [platform README](https://github.com/portal-poc/platform#readme) — how all pieces interact: [overview](https://github.com/portal-poc/platform/blob/main/docs/overview.md).
+
 Legacy remote on React 18 + React Router 7, shares nothing: the host mounts it through MF Bridge.
 Exposes `./RemoteRoot`, `./RemoteBridge`, `./runtime`, `./preload`. Builds with `@portal-poc/vite-config`.
 
